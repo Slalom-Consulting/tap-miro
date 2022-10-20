@@ -1,16 +1,12 @@
 """REST client handling, including MiroStream base class."""
 
-
 from pathlib import Path
 from typing import Any, Dict, Optional, Union, List, Iterable
-
 from singer_sdk.streams import RESTStream
 from singer_sdk.authenticators import BearerTokenAuthenticator
 from singer_sdk.pagination import JSONPathPaginator, BaseAPIPaginator
 
-
 SCHEMAS_DIR = Path(__file__).parent / Path("./schemas")
-
 
 class MiroStream(RESTStream):
     """Miro stream class."""
@@ -26,7 +22,6 @@ class MiroStream(RESTStream):
             token=self.config.get("access_token")
         )
 
-
     @property
     def http_headers(self) -> dict:
         """Return the http headers needed."""
@@ -39,7 +34,6 @@ class MiroStream(RESTStream):
             
         return headers
 
-
     def get_new_paginator(self) -> BaseAPIPaginator:
         """Get a fresh paginator for this API endpoint.
         Returns:
@@ -47,7 +41,6 @@ class MiroStream(RESTStream):
         """
         jsonpath = f'$.data[-1:].{self.cursor_field}'
         return JSONPathPaginator(jsonpath)
-
 
     def get_url_params(self, context, next_page_token) -> dict:
         """Return a dictionary of values to be used in URL parameterization.

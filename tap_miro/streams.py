@@ -3,7 +3,6 @@
 from pathlib import Path
 from tap_miro.client import MiroStream
 
-
 SCHEMAS_DIR = Path(__file__).parent / Path("./schemas")
 
 class OrgMembersStream(MiroStream):

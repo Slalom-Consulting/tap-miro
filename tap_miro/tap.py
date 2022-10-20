@@ -6,11 +6,11 @@ from singer_sdk import typing as th  # JSON schema typing helpers
 
 from tap_miro.streams import (
     #MiroStream,
-    OrgMembersStream,
+    OrganizationMembersStream,
 )
 
 STREAM_TYPES = [
-    OrgMembersStream
+    OrganizationMembersStream
 ]
 
 class TapMiro(Tap):

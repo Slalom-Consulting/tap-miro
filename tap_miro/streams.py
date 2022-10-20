@@ -5,7 +5,7 @@ from tap_miro.client import MiroStream
 
 SCHEMAS_DIR = Path(__file__).parent / Path('./schemas')
 
-class OrgMembersStream(MiroStream):
+class OrganizationMembersStream(MiroStream):
     """Define custom stream."""
     name = 'organization members'
     path = '/v2/orgs/{org_id}/members'

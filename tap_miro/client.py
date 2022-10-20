@@ -10,9 +10,12 @@ SCHEMAS_DIR = Path(__file__).parent / Path("./schemas")
 
 class MiroStream(RESTStream):
     """Miro stream class."""
-    url_base = "https://api.miro.com/v2"
     cursor_field = None
     query = {}
+
+    @property
+    def url_base(self) -> str:
+        return self.config.get('api_url')
 
     @property
     def authenticator(self) -> BearerTokenAuthenticator:

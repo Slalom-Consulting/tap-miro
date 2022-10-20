@@ -1,8 +1,10 @@
 # tap-miro
 
-`tap-miro` is a Singer tap for Miro.
+`tap-miro` is a Singer tap for [Miro](https://miro.com/).
 
 Built with the [Meltano Tap SDK](https://sdk.meltano.com) for Singer Taps.
+
+[Miro API Reference](https://developers.miro.com/reference/api-reference)
 
 <!--
 

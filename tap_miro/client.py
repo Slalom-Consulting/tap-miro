@@ -9,8 +9,11 @@ SCHEMAS_DIR = Path(__file__).parent / Path('./schemas')
 
 class MiroStream(RESTStream):
     """Miro stream class."""
-    cursor_field = None
     query = {}
+
+    def records_cursor_key(self) -> str:
+        """Record key that will be used to find team next to this id in the sorted list."""
+        return None
 
     @property
     def url_base(self) -> str:
@@ -33,33 +36,21 @@ class MiroStream(RESTStream):
         return headers
 
     def get_new_paginator(self) -> BaseAPIPaginator:
-        """Get a fresh paginator for this API endpoint.
-        Returns:
-            A paginator instance.
-        """
-        jsonpath = f'$.data[-1:].{self.cursor_field}'
+        """Get a fresh paginator for this API endpoint."""
+        jsonpath = f'$.data[-1:].{self.records_cursor_key}'
         return JSONPathPaginator(jsonpath)
 
     def get_url_params(self, context, next_page_token) -> dict:
-        """Return a dictionary of values to be used in URL parameterization.
-        If paging is supported, developers may override with specific paging logic.
-        Args:
-            context: Stream partition or context dictionary.
-            next_page_token: Token, page number or any request argument to request the
-                next page of data.
-        Returns:
-            Dictionary of URL query parameters to use in the request.
-        """
-        default_limit = 100
-        limit = self.query.get('limit')
-        params = self.query
+        """Return a dictionary of values to be used in URL parameterization."""
+        pagination = {}
 
-        if limit > default_limit:
-            params['limit'] = default_limit
+        if self.records_cursor_key:
+            pagination['cursor'] = next_page_token
+            limit = self.query.get('limit')
 
-        if self.cursor_field is not None:
-            params['cursor'] = next_page_token
-            if limit is None:
-                params['limit'] = default_limit
+            if limit:
+                pagination['limit'] = str(limit)
 
-        return params
+        query = self.query
+
+        return {**pagination, **query}

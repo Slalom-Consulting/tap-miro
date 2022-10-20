@@ -13,7 +13,7 @@ class OrganizationMembersStream(MiroStream):
     replication_key = None
     schema_filepath = SCHEMAS_DIR / 'org_members.json'
     records_jsonpath = '$.data[*]'
-    cursor_field = 'id'
+    records_cursor_key = 'id'
     query = {
         'active': True,
         'license': 'full',

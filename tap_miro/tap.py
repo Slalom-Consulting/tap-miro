@@ -28,13 +28,18 @@ class TapMiro(Tap):
             'org_id',
             th.StringType,
             required=True,
-            description='Organization id'
+            description='The id of an Organization.'
+        ),
+        th.Property(
+            'response_limit',
+            th.IntegerType,
+            description='[Optional] Default 100; Minumum: 0, Maximum: 100. Limit of records in result list.'
         ),
         th.Property(
             'api_url',
             th.StringType,
             default='https://api.miro.com',
-            description='The url for the API service'
+            description='[Optional] The url for the API service'
         ),
     ).to_dict()
 

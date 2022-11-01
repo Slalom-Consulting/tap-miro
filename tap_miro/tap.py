@@ -44,8 +44,7 @@ class TapMiro(Tap):
         th.Property(
             'api_url',
             th.StringType,
-            default='https://api.miro.com',
-            description='The url for the API service.'
+            description='Override the url for the API service.'
         ),
     ).to_dict()
 

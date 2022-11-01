@@ -5,12 +5,14 @@ from singer_sdk.streams import RESTStream
 from singer_sdk.authenticators import BearerTokenAuthenticator
 import time
 
+API_URL = 'https://api.miro.com'
+
 
 class MiroStream(RESTStream):
     """Miro stream class."""
     @property
     def url_base(self) -> str:
-        return self.config.get('api_url')
+        return self.config.get('api_url', API_URL)
 
     @property
     def authenticator(self) -> BearerTokenAuthenticator:

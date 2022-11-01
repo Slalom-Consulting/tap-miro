@@ -59,7 +59,6 @@ Built with the [Meltano Singer SDK](https://sdk.meltano.com).
 | organization_id     | True     | None    | The ID of an Organization. |
 | limit               | False    |     100 | The response limit for paginated API streams. (Range: 0-100) |
 | user_agent          | False    | None    | The User agent to present to the API. |
-| api_url             | False    | https://api.miro.com | The url for the API service. |
 
 A full list of supported settings and capabilities for this
 tap is available by running:

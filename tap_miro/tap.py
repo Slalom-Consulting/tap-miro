@@ -2,7 +2,7 @@
 
 from typing import List
 from singer_sdk import Tap, Stream
-from singer_sdk import typing as th  # JSON schema typing helpers
+from singer_sdk import typing as th
 
 from tap_miro.streams import (
     #MiroStream,
@@ -22,30 +22,37 @@ class TapMiro(Tap):
             'access_token',
             th.StringType,
             required=True,
-            description='Access token'
+            description='Access token.'
         ),
         th.Property(
-            'org_id',
+            'organization_id',
             th.StringType,
             required=True,
-            description='The id of an Organization.'
+            description='The ID of an Organization.'
         ),
         th.Property(
-            'response_limit',
+            'limit',
             th.IntegerType,
-            description='[Optional] Default 100; Minumum: 0, Maximum: 100. Limit of records in result list.'
+            default=100,
+            description='The response limit for paginated API streams. (Range: 0-100)'
+        ),
+        th.Property(
+            "user_agent",
+            th.StringType,
+            description='The User agent to present to the API.'
         ),
         th.Property(
             'api_url',
             th.StringType,
             default='https://api.miro.com',
-            description='[Optional] The url for the API service'
+            description='The url for the API service.'
         ),
     ).to_dict()
 
     def discover_streams(self) -> List[Stream]:
         """Return a list of discovered streams."""
         return [stream_class(tap=self) for stream_class in STREAM_TYPES]
+
 
 if __name__ == '__main__':
     TapMiro.cli()

@@ -1,0 +1,29 @@
+{
+    "type": "object",
+    "properties": {
+        "active": {
+            "type": "boolean"
+        },
+        "email": {
+            "type": "string"
+        },
+        "id": {
+            "type": "string"
+        },
+        "lastActivityAt": {
+            "type": "string"
+        },
+        "license": {
+            "type": "string"
+        },
+        "licenseAssignedAt": {
+            "type": "string"
+        },
+        "role": {
+            "type": "string"
+        },
+        "type": {
+            "type": "string"
+        }
+    }
+}

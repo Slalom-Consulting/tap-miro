@@ -1,51 +1,50 @@
 """Miro tap class."""
 
 from typing import List
-
 from singer_sdk import Tap, Stream
-from singer_sdk import typing as th  # JSON schema typing helpers
-# TODO: Import your custom stream types here:
-from tap_miro.streams import (
-    MiroStream,
-    UsersStream,
-    GroupsStream,
-)
-# TODO: Compile a list of custom stream types here
-#       OR rewrite discover_streams() below with your custom logic.
-STREAM_TYPES = [
-    UsersStream,
-    GroupsStream,
-]
+from singer_sdk import typing as th
 
+from tap_miro.streams import (
+    #MiroStream,
+    OrganizationMembersStream,
+)
+
+STREAM_TYPES = [
+    OrganizationMembersStream
+]
 
 class TapMiro(Tap):
     """Miro tap class."""
-    name = "tap-miro"
+    name = 'tap-miro'
 
-    # TODO: Update this section with the actual config values you expect:
     config_jsonschema = th.PropertiesList(
         th.Property(
-            "auth_token",
+            'access_token',
             th.StringType,
             required=True,
-            description="The token to authenticate against the API service"
+            description='Access token.'
         ),
         th.Property(
-            "project_ids",
-            th.ArrayType(th.StringType),
-            required=True,
-            description="Project IDs to replicate"
-        ),
-        th.Property(
-            "start_date",
-            th.DateTimeType,
-            description="The earliest record date to sync"
-        ),
-        th.Property(
-            "api_url",
+            'organization_id',
             th.StringType,
-            default="https://api.mysample.com",
-            description="The url for the API service"
+            required=True,
+            description='The ID of an Organization.'
+        ),
+        th.Property(
+            'limit',
+            th.IntegerType,
+            default=100,
+            description='The response limit for paginated API streams. (Range: 0-100)'
+        ),
+        th.Property(
+            "user_agent",
+            th.StringType,
+            description='The User agent to present to the API.'
+        ),
+        th.Property(
+            'api_url',
+            th.StringType,
+            description='Override the url for the API service.'
         ),
     ).to_dict()
 
@@ -54,5 +53,5 @@ class TapMiro(Tap):
         return [stream_class(tap=self) for stream_class in STREAM_TYPES]
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     TapMiro.cli()

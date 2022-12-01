@@ -1,8 +1,8 @@
 # tap-miro
 
-`tap-miro` is a Singer tap for Miro.
+`tap-miro` is a Singer tap for [Miro](https://miro.com/).
 
-Built with the [Meltano Tap SDK](https://sdk.meltano.com) for Singer Taps.
+Built with the [Meltano Tap SDK](https://sdk.meltano.com) for Singer Taps and the [Miro API Reference](https://developers.miro.com/reference/api-reference)
 
 <!--
 
@@ -37,6 +37,28 @@ This section can be created by copy-pasting the CLI output from:
 tap-miro --about --format=markdown
 ```
 -->
+
+Miro tap class.
+
+Built with the [Meltano Singer SDK](https://sdk.meltano.com).
+
+## Capabilities
+
+* `catalog`
+* `state`
+* `discover`
+* `about`
+* `stream-maps`
+* `schema-flattening`
+
+## Settings
+
+| Setting             | Required | Default | Description |
+|:--------------------|:--------:|:-------:|:------------|
+| access_token        | True     | None    | Access token. |
+| organization_id     | True     | None    | The ID of an Organization. |
+| limit               | False    |     100 | The response limit for paginated API streams. (Range: 0-100) |
+| user_agent          | False    | None    | The User agent to present to the API. |
 
 A full list of supported settings and capabilities for this
 tap is available by running:

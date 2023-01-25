@@ -5,13 +5,13 @@ from singer_sdk import Tap, Stream
 from singer_sdk import typing as th
 
 from tap_miro.streams import (
-    #MiroStream,
     OrganizationMembersStream,
 )
 
 STREAM_TYPES = [
     OrganizationMembersStream
 ]
+
 
 class TapMiro(Tap):
     """Miro tap class."""

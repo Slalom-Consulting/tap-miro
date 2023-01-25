@@ -27,18 +27,17 @@ class MiroStream(RESTStream):
 
         if "user_agent" in self.config:
             headers['User-Agent'] = self.config.get('user_agent')
-            
+
         return headers
 
     def backoff_wait_generator(self) -> Callable[..., Generator[int, Any, None]]:
         def _backoff_from_headers(retriable_api_error) -> int:
             headers: dict = retriable_api_error.response.headers
-            
+
             if 'X-RateLimit-Reset' in headers:
                 retry_at = headers.get('X-RateLimit-Reset')
                 return retry_at - int(time.time())
-            
+
             return 0
 
         return self.backoff_runtime(value=_backoff_from_headers)
-

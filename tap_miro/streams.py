@@ -16,8 +16,8 @@ class OrganizationMembersStream(MiroStream):
     schema_filepath = SCHEMAS_DIR / 'org_members.json'
     records_jsonpath = '$.data[*]'
     next_page_token_jsonpath = '$.data[-1:].id'
-    
-    #TODO: make query a tap config
+
+    # TODO: make query a tap config
     query = {
         'active': True,
         'license': 'full',

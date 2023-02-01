@@ -4,6 +4,7 @@ import time
 from typing import Generator
 
 from singer_sdk.authenticators import BearerTokenAuthenticator
+from singer_sdk.pagination import JSONPathPaginator
 from singer_sdk.streams import RESTStream
 
 API_URL = "https://api.miro.com"
@@ -12,6 +13,8 @@ API_URL = "https://api.miro.com"
 class MiroStream(RESTStream):
     """Miro stream class."""
 
+    next_page_token_jsonpath = ""
+
     @property
     def url_base(self) -> str:
         return self.config.get("api_url", API_URL)
@@ -19,7 +22,7 @@ class MiroStream(RESTStream):
     @property
     def authenticator(self) -> BearerTokenAuthenticator:
         """Return a new authenticator object."""
-        access_token = str(self.config.get("access_token"))
+        access_token = self.config["access_token"]
         return BearerTokenAuthenticator(self, access_token)
 
     @property
@@ -28,7 +31,7 @@ class MiroStream(RESTStream):
         headers = {"Accept": "application/json"}
 
         if "user_agent" in self.config:
-            headers["User-Agent"] = str(self.config["user_agent"])
+            headers["User-Agent"] = self.config["user_agent"]
 
         return headers
 
@@ -43,3 +46,27 @@ class MiroStream(RESTStream):
             return 0
 
         return self.backoff_runtime(value=_backoff_from_headers)
+
+    def get_new_paginator(self) -> JSONPathPaginator:
+        return JSONPathPaginator(self.next_page_token_jsonpath)
+
+    def get_strem_config(self) -> dict:
+        """Get parameters set in config."""
+        config: dict = {}
+
+        stream_config = self.config.get("stream_config", [])
+        if not stream_config:
+            return config
+
+        config_dict: dict = stream_config[0]
+        return config_dict.get(self.name, config)
+
+    def get_url_params(self, context, next_page_token) -> dict:
+        """Return a dictionary of values to be used in URL parameterization."""
+        params = self.get_strem_config().get("parameters", {})
+        params = {"limit": self.config.get("limit")}
+
+        if next_page_token:
+            params["cursor"] = next_page_token
+
+        return params

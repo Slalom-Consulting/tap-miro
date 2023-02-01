@@ -17,7 +17,10 @@ class TapMiro(Tap):
 
     config_jsonschema = th.PropertiesList(
         th.Property(
-            "access_token", th.StringType, required=True, description="Access token."
+            "access_token",
+            th.StringType,
+            required=True,
+            description="Access token for API.",
         ),
         th.Property(
             "organization_id",

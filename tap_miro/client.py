@@ -1,7 +1,7 @@
 """REST client handling, including MiroStream base class."""
 
 import time
-from typing import Any, Callable, Generator
+from typing import Generator
 
 from singer_sdk.authenticators import BearerTokenAuthenticator
 from singer_sdk.streams import RESTStream
@@ -19,7 +19,7 @@ class MiroStream(RESTStream):
     @property
     def authenticator(self) -> BearerTokenAuthenticator:
         """Return a new authenticator object."""
-        access_token = self.config.get("access_token")
+        access_token = str(self.config.get("access_token"))
         return BearerTokenAuthenticator(self, access_token)
 
     @property
@@ -28,16 +28,16 @@ class MiroStream(RESTStream):
         headers = {"Accept": "application/json"}
 
         if "user_agent" in self.config:
-            headers["User-Agent"] = self.config.get("user_agent")
+            headers["User-Agent"] = str(self.config["user_agent"])
 
         return headers
 
-    def backoff_wait_generator(self) -> Callable[..., Generator[int, Any, None]]:
+    def backoff_wait_generator(self) -> Generator[float, None, None]:
         def _backoff_from_headers(retriable_api_error) -> int:
             headers: dict = retriable_api_error.response.headers
 
             if "X-RateLimit-Reset" in headers:
-                retry_at = headers.get("X-RateLimit-Reset")
+                retry_at = int(headers["X-RateLimit-Reset"])
                 return retry_at - int(time.time())
 
             return 0

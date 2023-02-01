@@ -39,3 +39,5 @@ class OrganizationMembersStream(MiroStream):
 
         if params:
             return {**params, **self.query}
+
+        return {}

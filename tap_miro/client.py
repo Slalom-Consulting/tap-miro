@@ -2,6 +2,7 @@
 
 import time
 from typing import Generator
+from urllib.parse import parse_qsl
 
 from singer_sdk.authenticators import BearerTokenAuthenticator
 from singer_sdk.pagination import JSONPathPaginator
@@ -50,21 +51,29 @@ class MiroStream(RESTStream):
     def get_new_paginator(self) -> JSONPathPaginator:
         return JSONPathPaginator(self.next_page_token_jsonpath)
 
-    def get_strem_config(self) -> dict:
+    def _get_strem_config(self) -> dict:
         """Get parameters set in config."""
         config: dict = {}
 
-        stream_config = self.config.get("stream_config", [])
-        if not stream_config:
+        stream_configs = self.config.get("stream_config", [])
+        if not stream_configs:
             return config
 
-        config_dict: dict = stream_config[0]
-        return config_dict.get(self.name, config)
+        config_list = [
+            conf for conf in stream_configs if conf.get("stream") == self.name
+        ] or [None]
+        config_dict = config_list[-1] or {}
+        stream_config = {k: v for k, v in config_dict.items() if k != "stream"}
+        return stream_config
+
+    def _get_stream_params(self) -> dict:
+        stream_params = self._get_strem_config().get("parameters", "")
+        return {qry[0]: qry[1] for qry in parse_qsl(stream_params.lstrip("?"))}
 
     def get_url_params(self, context, next_page_token) -> dict:
         """Return a dictionary of values to be used in URL parameterization."""
-        params = self.get_strem_config().get("parameters", {})
-        params = {"limit": self.config.get("limit")}
+        params = self._get_stream_params()
+        params["limit"] = self.config["limit"]
 
         if next_page_token:
             params["cursor"] = next_page_token

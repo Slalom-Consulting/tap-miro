@@ -10,8 +10,6 @@ from tap_miro.tests.mock_api import mock_api
 SAMPLE_CONFIG = {
     "access_token": "SampleToken",
     "organization_id": "SampleOrganizationId",
-    "start_date": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d")
-    # TODO: Initialize minimal tap config
 }
 
 

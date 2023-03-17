@@ -1,0 +1,17 @@
+{
+	"limit": 1,
+	"size": 1,
+	"data": [
+		{
+			"id": "1000",
+			"active": false,
+			"email": "sample@email.com",
+			"lastActivityAt": "2022-01-01T00:00:00Z",
+			"license": "full",
+			"licenseAssignedAt": "2022-01-01T00:00:00Z",
+			"role": "organization_internal_user",
+			"type": "organization-member"
+		}
+	],
+	"type": "cursor-list"
+}

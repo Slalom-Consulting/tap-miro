@@ -44,6 +44,26 @@ class TapMiro(Tap):
             th.StringType,
             description="Override the url for the API service.",
         ),
+        th.Property(
+            "stream_config",
+            th.ArrayType(
+                th.PropertiesList(
+                    th.Property(
+                        "stream",
+                        th.StringType,
+                        required=True,
+                        description="Name of stream to apply a custom configuration.",
+                    ),
+                    th.Property(
+                        "parameters",
+                        th.StringType,
+                        description=(
+                            "URL formatted parameters string " "to be used for stream."
+                        ),
+                    ),
+                ),
+            ),
+        ),
     ).to_dict()
 
     def discover_streams(self) -> List[Stream]:

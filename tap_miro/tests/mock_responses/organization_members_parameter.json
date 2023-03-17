@@ -7,7 +7,7 @@
 			"active": false,
 			"email": "sample@email.com",
 			"lastActivityAt": "2022-01-01T00:00:00Z",
-			"license": "free",
+			"license": "full",
 			"licenseAssignedAt": "2022-01-01T00:00:00Z",
 			"role": "organization_internal_user",
 			"type": "organization-member"

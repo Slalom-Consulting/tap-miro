@@ -68,6 +68,25 @@ tap is available by running:
 tap-miro --about
 ```
 
+#### stream_config
+When using the stream_config setting, the config must be a list of dictionaries, and containing the name of the stream. If multiple of the same stream names are found, the last one in the list will be used. 
+
+| Setting             | Required | Default | Description |
+|:--------------------|:--------:|:-------:|:------------|
+| stream              | True     | None    | Name of the stream to configure |
+| parameters          | False    | None    | URL query string to send to the stream endpoint |
+
+```json
+{
+    "stream_config": [
+        {
+            "stream": "STREAM_NAME",
+            "parameters": "URL_QUERY_STRING"
+        }
+    ]
+}
+```
+
 ### Configure using environment variables
 
 This Singer tap will automatically import any environment variables within the working directory's

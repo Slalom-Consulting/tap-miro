@@ -59,11 +59,9 @@ Built with the [Meltano Singer SDK](https://sdk.meltano.com).
 | organization_id     | True     | None    | The ID of an Organization. |
 | limit               | False    |     100 | The response limit for paginated API streams. (Range: 0-100) |
 | user_agent          | False    | None    | The User agent to present to the API. |
-| stream_config       | False    | None    | A list of dictionaries for specifing addtional configurations for a specified stream
-| stream_config       | False    | None    | A list of dictionaries for specifing addtional configurations for a specified stream
+| stream_config       | False    | None    | A list of dictionaries for specifing additional configurations for a specified stream
 
-A full list of supported settings and capabilities for this
-tap is available by running:
+A full list of supported settings and capabilities for this tap is available by running:
 
 ```bash
 tap-miro --about
@@ -71,7 +69,7 @@ tap-miro --about
 
 ### Settings for Specific Streams
 
-Settings can be added on a per stream basis and can be set using the stream_config setting. The stream_config setting takes a list of dictionaries, requiring the stream name as a value in the stream key. If the same stream name is added multilpe times, only the last will be used.
+Settings can be added on a per-stream basis and can be set using the stream_config setting. The stream_config setting takes a list of dictionaries, requiring the stream name as a value in the stream key. If the same stream name is added multiple times, only the last will be used.
 
 | Setting             | Required | Default | Description |
 |:--------------------|:--------:|:-------:|:------------|

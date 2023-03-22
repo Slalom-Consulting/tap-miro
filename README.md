@@ -60,6 +60,7 @@ Built with the [Meltano Singer SDK](https://sdk.meltano.com).
 | limit               | False    |     100 | The response limit for paginated API streams. (Range: 0-100) |
 | user_agent          | False    | None    | The User agent to present to the API. |
 | stream_config       | False    | None    | A list of dictionaries for specifing addtional configurations for a specified stream
+| stream_config       | False    | None    | A list of dictionaries for specifing addtional configurations for a specified stream
 
 A full list of supported settings and capabilities for this
 tap is available by running:

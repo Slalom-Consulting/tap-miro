@@ -68,8 +68,9 @@ tap is available by running:
 tap-miro --about
 ```
 
-#### Settings for Specific Streams
-Settings can be added on a per stream basis and can be set using the stream_config setting. The stream_config setting takes a list of dictionaries, requiring the stream name as a value in the stream key. If the same stream name is added multilpe times, only the last will be used. 
+### Settings for Specific Streams
+
+Settings can be added on a per stream basis and can be set using the stream_config setting. The stream_config setting takes a list of dictionaries, requiring the stream name as a value in the stream key. If the same stream name is added multilpe times, only the last will be used.
 
 | Setting             | Required | Default | Description |
 |:--------------------|:--------:|:-------:|:------------|
@@ -77,6 +78,7 @@ Settings can be added on a per stream basis and can be set using the stream_conf
 | parameters          | False    | None    | URL query string to send to the stream endpoint |
 
 Example:
+
 ```json
 {
     "stream_config": [

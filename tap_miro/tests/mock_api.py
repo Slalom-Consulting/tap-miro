@@ -53,7 +53,7 @@ mock_param_config = {
 }
 
 
-def mock_param_api(func, SAMPLE_CONFIG):
+def mock_param_api(func, SAMPLE_CONFIG: dict):
     """Mock API."""
     mock_config = mock_param_config
 

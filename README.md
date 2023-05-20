@@ -24,6 +24,21 @@ pipx install git+https://github.com/ORG_NAME/tap-miro.git@main
 
 -->
 
+Install from GitHub:
+
+```bash
+pipx install git+https://github.com/Slalom-Consulting/tap-miro.git@main
+```
+
+## Capabilities
+
+* `catalog`
+* `state`
+* `discover`
+* `about`
+* `stream-maps`
+* `schema-flattening`
+
 ## Configuration
 
 ### Accepted Config Options
@@ -59,7 +74,7 @@ Built with the [Meltano Singer SDK](https://sdk.meltano.com).
 | organization_id     | True     | None    | The ID of an Organization. |
 | limit               | False    |     100 | The response limit for paginated API streams. (Range: 0-100) |
 | user_agent          | False    | None    | The User agent to present to the API. |
-| stream_config       | False    | None    | A list of dictionaries for specifing additional configurations for a specified stream
+| stream_config       | False    | None    | Specify additional configurations for a specified stream |
 
 A full list of supported settings and capabilities for this tap is available by running:
 
@@ -69,23 +84,21 @@ tap-miro --about
 
 ### Settings for Specific Streams
 
-Settings can be added on a per-stream basis and can be set using the stream_config setting. The stream_config setting takes a list of dictionaries, requiring the stream name as a value in the stream key. If the same stream name is added multiple times, only the last will be used.
+Settings can be added on a per-stream basis and can be set using the stream_config setting. The stream_config setting takes a dictionary with the stream name as the key and supports the following configuration options:
 
 | Setting             | Required | Default | Description |
 |:--------------------|:--------:|:-------:|:------------|
-| stream              | True     | None    | Name of the stream to configure |
 | parameters          | False    | None    | URL query string to send to the stream endpoint |
 
 Example:
 
 ```json
 {
-    "stream_config": [
-        {
-            "stream": "STREAM_NAME",
-            "parameters": "URL_QUERY_STRING"
+    "stream_config": {
+        "organization_members": {
+            "parameters": "?active=true&license=free"
         }
-    ]
+    }
 }
 ```
 
@@ -95,9 +108,9 @@ This Singer tap will automatically import any environment variables within the w
 `.env` if the `--config=ENV` is provided, such that config values will be considered if a matching
 environment variable is set either in the terminal context or in the `.env` file.
 
+<!--
 ### Source Authentication and Authorization
 
-<!--
 Developer TODO: If your tap requires special access on the source system, or any special authentication requirements, provide those here.
 -->
 

@@ -4,6 +4,7 @@ import time
 from typing import Generator
 from urllib.parse import parse_qsl
 
+from memoization import cached
 from singer_sdk.authenticators import BearerTokenAuthenticator
 from singer_sdk.pagination import JSONPathPaginator
 from singer_sdk.streams import RESTStream
@@ -21,6 +22,7 @@ class MiroStream(RESTStream):
         return self.config.get("api_url", API_URL)
 
     @property
+    @cached  # type: ignore[override]
     def authenticator(self) -> BearerTokenAuthenticator:
         """Return a new authenticator object."""
         access_token = self.config["access_token"]

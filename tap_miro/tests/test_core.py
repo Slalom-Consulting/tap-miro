@@ -29,15 +29,18 @@ def test_standard_tap_tests():
 def test_standard_tap_param_tests():
     """Run standard tap tests from the SDK."""
     config = SAMPLE_CONFIG.copy()
-    config["stream_config"] = [
-        {"stream": "organization_members", "parameters": "active=true&license=full"}
-    ]
+    config["stream_config"] = {
+        "organization_members": {"parameters": "active=true&license=full"}
+    }
+
     tests = get_standard_tap_tests(TapMiro, config=config)
     for test in tests:
         if test.__name__ in ("_test_stream_connections"):
             mock_param_api(test, config)
 
-            config["stream_config"][0]["parameters"] = "active=true&license=free"
+            config["stream_config"]["organization_members"][
+                "parameters"
+            ] = "active=true&license=free"
 
             try:
                 mock_param_api(test, config)

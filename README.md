@@ -53,21 +53,6 @@ tap-miro --about --format=markdown
 ```
 -->
 
-Miro tap class.
-
-Built with the [Meltano Singer SDK](https://sdk.meltano.com).
-
-## Capabilities
-
-* `catalog`
-* `state`
-* `discover`
-* `about`
-* `stream-maps`
-* `schema-flattening`
-
-## Settings
-
 | Setting             | Required | Default | Description |
 |:--------------------|:--------:|:-------:|:------------|
 | access_token        | True     | None    | Access token. |
